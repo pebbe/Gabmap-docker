@@ -34,7 +34,7 @@ RUN sed -e 's/^# en_US.UTF-8'/en_US.UTF-8'/' /etc/locale.gen > /etc/locale.gen.t
     mv /etc/locale.gen.tmp /etc/locale.gen && \
     locale-gen
 
-RUN mkdir -p /mod/main && \
+RUN mkdir -p /mod/etc && \
     cd /mod && \
     curl -s http://www.let.rug.nl/~kleiweg/L04/L04-src.tar.gz | tar vxzf - && \
     cd RuG-L04/src && \
@@ -42,7 +42,17 @@ RUN mkdir -p /mod/main && \
     R CMD INSTALL ../R/iL04*.tar.gz
     
 ADD https://github.com/pebbe/Gabmap/commits/master.atom /master
-RUN cd /mod && git clone https://github.com/pebbe/Gabmap && rm -r Gabmap/.git Gabmap/src && rm /master
+RUN cd /mod && git clone https://github.com/pebbe/Gabmap && rm -r Gabmap/.git Gabmap/src && rm /master && \
+    make -C /mod/Gabmap/util
 
 ADD INIT.sh /mod/Gabmap/bin/
-ADD httpd.config /mod/main/
+ADD profile.sh /mod/etc/
+ADD httpd.config /mod/etc/
+
+EXPOSE 9000
+
+ADD entrypoint.sh /mod/etc/
+RUN chmod 755 /mod/etc/entrypoint.sh
+
+ENTRYPOINT ["/mod/etc/entrypoint.sh"]
+CMD ["shell"]
