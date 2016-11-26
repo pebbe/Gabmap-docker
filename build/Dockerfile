@@ -3,8 +3,8 @@
 #
 # To build and push to docker hub:
 #
-#     docker build -t rugcompling/webl04:latest .
-#     docker push rugcompling/webl04:latest
+#     docker build -t pebbe/webl04:latest .
+#     docker push pebbe/webl04:latest
 #
 
 FROM debian:8
@@ -43,7 +43,9 @@ RUN mkdir -p /mod/etc && \
     
 ADD https://github.com/pebbe/Gabmap/commits/master.atom /master
 RUN cd /mod && git clone https://github.com/pebbe/Gabmap && rm -r Gabmap/.git Gabmap/src && rm /master && \
-    make -C /mod/Gabmap/util
+    make -C /mod/Gabmap/util && \
+    cd /mod/Gabmap/examples && \
+    rm -f *.u16 HEADER.html .htaccess
 
 ADD INIT.sh /mod/Gabmap/bin/
 ADD profile.sh /mod/etc/
