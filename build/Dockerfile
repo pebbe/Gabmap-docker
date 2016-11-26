@@ -3,8 +3,8 @@
 #
 # To build and push to docker hub:
 #
-#     docker build -t pebbe/webl04:latest .
-#     docker push pebbe/webl04:latest
+#     docker build -t pebbe/web04:latest .
+#     docker push pebbe/web04:latest
 #
 
 FROM debian:8

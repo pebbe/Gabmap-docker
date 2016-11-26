@@ -275,21 +275,28 @@ case "$1" in
     start)
         docker run \
             -d \
-            --name=webl04.serve \
+            --name=web04.serve \
             -p $port:9000 \
             -v "$dir":/mod/data \
-            rugcompling/webl04:latest serve $uid $gid
+            rugcompling/web04:latest serve $uid $gid
         ;;
     stop)
-        docker stop webl04.serve
-        docker rm webl04.serve
+        docker stop web04.serve
+        docker rm web04.serve
+        ;;
+    upgrade)
+        echo web04 wordt gestopt
+        docker stop web04.serve
+        docker rm web04.serve
+        docker pull pebbe/web04:latest
+        echo web04 moet opnieuw gestart worden
         ;;
     shell)
         docker run \
             --rm \
             -i -t \
             -v "$dir":/mod/data \
-            rugcompling/webl04:latest shell
+            rugcompling/web04:latest shell
         ;;
     *)
 	echo
