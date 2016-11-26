@@ -21,30 +21,30 @@ foreach $p (@parts) {
 echo >> web04.bash
 if [ $? != 0 ]
 then
-    echo Het script web04.bash kan niet aangemaakt worden
-    echo Draai setup.bash in een directory waar je schrijfrechten hebt
-    echo Setup afgebroken
+    echo The script web04.bash can\'t be created
+    echo Run setup.bash in a directory where you have write permission
+    echo Setup aborted
     exit
 fi
 
 os=`docker version -f {{.Client.Os}}`
 
 echo
-echo Plaats waar web04 bestanden opslaat
-echo Voorbeeld: $HOME/web04-data
+echo Directory where web04 saves your data
+echo Example: $HOME/web04-data
 read -p 'Directory: ' DATA
 if [ "$DATA" = "" ]
 then
-    echo Setup afgebroken
+    echo Setup aborted
     exit
 fi
 case "$DATA" in
     /*)
 	;;
     *)
-	echo Je moet een absoluut path naar een directory opgeven
-	echo \'$DATA\' is geen absoluut path
-	echo Setup afgebroken
+	echo You need to provide an absolute path to a directory
+	echo \'$DATA\' is not an absolute path
+	echo Setup aborted
 	exit
 	;;
 esac
@@ -52,19 +52,19 @@ if [ -e "$DATA" ]
 then
     if [ ! -d "$DATA" ]
     then
-	echo \'$DATA\' bestaat en is geen directory
-	echo Setup afgebroken
+	echo \'$DATA\' exists and is not a directory
+	echo Setup aborted
 	exit
     fi
     if [ -f "$DATA/.etc/INIT-local.sh" ]
     then
-	echo Er staat al een INIT-local.sh in \'$DATA/.etc\'
-	read -p 'Setup vervangen? (j/n) ' JN
+	echo The file INIT-local.sh already exists in \'$DATA/.etc\'
+	read -p 'Replace setup? (y/n) ' JN
 	case $JN in
 	    [jJyY]*)
 	    	;;
 	    *)
-		echo Setup afgebroken
+		echo Setup aborted
 		exit
 		;;
 	esac
@@ -72,21 +72,21 @@ then
 	shopt -s dotglob
 	if [ "`echo $DATA/*`" != "$DATA/"'*' ]
 	then
-	    echo De directory \'$DATA\' is niet leeg
-	    echo Als je echt deze directory wilt gebruiken, doe dan: touch \"$DATA/.etc/INIT-local.sh\"
-	    echo Setup afgebroken
+	    echo The directory \'$DATA\' is not empty
+	    echo If you truly want to use this directory, run: touch \"$DATA/.etc/INIT-local.sh\"
+	    echo Setup aborted
 	    exit
 	fi
     fi
 else
 
-    echo Directory \'$DATA\' bestaat niet
-    read -p 'Directory aanmaken? (j/n) ' JN
+    echo Directory \'$DATA\' does not exist
+    read -p 'Create directory? (y/n) ' JN
     case $JN in
 	[jJyY]*)
 	    ;;
 	*)
-	    echo Setup afgebroken
+	    echo Setup aborted
 	    exit
 	    ;;
     esac
@@ -97,8 +97,8 @@ do
     mkdir -p "$DATA/$i"
     if [ ! -d "$DATA/$i" ]
     then
-	echo Maken van directory \'$DATA/$i\' is mislukt
-	echo Setup afgebroken
+	echo Creating directory \'$DATA/$i\' failed
+	echo Setup aborted
 	exit
     fi
 done
@@ -112,10 +112,10 @@ then
 	    P=`dir="$DATA" perl -e "$script"`
 	    if [ "$P" != "" ]
 	    then
-		echo Het path \'$P\' moet voor iedereen executable zijn
-		echo Doe eerst:
+		echo The path \'$P\' needs to be executable for everybody
+		echo Run this first:
 		echo "  chmod a+x \"$P\""
-		echo Setup afgebroken
+		echo Setup aborted
 		exit
 	    fi
 	    ;;
@@ -123,33 +123,33 @@ then
 fi
 
 echo
-echo Op welke poort wil je web04 laten draaien?
-echo Voorbeeld: 9000
-read -p 'Poort: ' PORT
+echo What port do you want to run web04 on?
+echo Example: 9000
+read -p 'Port number: ' PORT
 if [ "$PORT" = "" ]
 then
-    echo Poortnummer ontbreekt
-    echo Setup afgebroken
+    echo Port number missing
+    echo Setup aborted
     exit
 fi
 
 echo
-echo Wat is het adres dat gebruikt moet worden als afzender in mail verstuurd door web04?
-echo Voorbeeld: maintainer@web04.nl
-read -p 'Adres: ' MAILFROM
+echo What is the address to use as sender of mail by web04?
+echo Example: maintainer@web04.nl
+read -p 'Address: ' MAILFROM
 if [ "$MAILFROM" = "" ]
 then
-    echo Adres ontbreekt
-    echo Setup afgebroken
+    echo Address missing
+    echo Setup aborted
     exit
 fi
 
 maildomain=`echo $MAILFROM | sed -e 's/.*@//'`
 
 echo
-echo Wat is het adres van de smtp-server waarmee web04 mail kan versturen?
-echo TIP: Kijk in je mailprogramma naar de instellingen van smtp.
-echo 'Voorbeelden, met/zonder poortnummer (poort 25 is de default):'
+echo What is the IP address of the smtp server that web04 can use to send mail?
+echo HINT: Look in your mail program in the settings of smtp.
+echo 'Examples, with/without port number (port 25 is the default):'
 echo "  smtp.$maildomain"
 echo "  smtp.$maildomain:25"
 echo "  smtp.$maildomain:465"
@@ -157,24 +157,24 @@ echo "  smtp.$maildomain:587"
 read -p 'SMTP-server: ' SMTPSERV
 if [ "$SMTPSERV" = "" ]
 then
-    echo Smtp-server ontbreekt
-    echo Setup afgebroken
+    echo Smtp server missing
+    echo Setup aborted
     exit
 fi
 
 echo
-echo Is het nodig in te loggen op de smtp-server voordat je er mail heen kunt zenden?
-echo Zo ja, geef dan je loginnaam voor de smtp-server
+echo Do you need to log-in on the smtp server before you can send mail?
+echo If so, provide your username for the smtp server
 read -p 'Username: ' SMTPUSER
 if [ "$SMTPUSER" != "" ]
 then
     echo
-    echo Geef je password voor de smtp-server
+    echo Provide the password for the smtp server
     read -p 'Password: ' SMTPPASS
     if [ "$SMTPPASS" = "" ]
     then
-	echo Password ontbreekt
-	echo Setup afgebroken
+	echo Password missing
+	echo Setup aborted
 	exit
     fi
 fi
@@ -280,7 +280,7 @@ case "$1" in
             -v "$dir":/mod/data \
             pebbe/web04:latest serve $uid $gid
             echo
-            echo web04 is gestart op http://$localhost:$port/
+            echo web04 has started on http://$localhost:$port/
             echo
         ;;
     stop)
@@ -288,11 +288,11 @@ case "$1" in
         docker rm web04.serve
         ;;
     upgrade)
-        echo web04 wordt gestopt
+        echo stopping web04
         docker stop web04.serve
         docker rm web04.serve
         docker pull pebbe/web04:latest
-        echo web04 moet opnieuw gestart worden
+        echo web04 needs to be restarted
         ;;
     shell)
         docker run \
@@ -303,18 +303,18 @@ case "$1" in
         ;;
     *)
 	echo
-	echo Gebruik: web04.bash CMD
+	echo Usage: web04.bash CMD
 	echo
-	echo CMD is een van:
+	echo CMD is one of:
 	echo
-	echo "  start          - start web04"
-	echo "  stop           - stop web04"
+	echo "  start     - start web04"
+	echo "  stop      - stop web04"
 	echo
-        echo "  upgrade        - upgrade naar laatste versie van web04"
+        echo "  upgrade   - upgrade to latest version of web04"
 	echo
-	echo "  shell          - open een interactieve shell"
+	echo "  shell     - open an interactive shell"
         echo
-	echo Voor meer informatie, kijk op:
+	echo For more information, go to:
 	echo
 	echo "  https://github.com/pebbe/Gabmap-docker"
 	echo
@@ -330,26 +330,26 @@ cat <<EOF
 ================================================================
 
 
-web04 is klaar voor gebruik.
+web04 is ready to use.
 
 EOF
-echo Eventueel kun je nog dingen aanpassen in: $DATA/.etc/INIT-local.sh
+echo If you want, you can change things in: $DATA/.etc/INIT-local.sh
 cat <<EOF
 
 
 
-Om web04 te starten, run:
+To start web04, run:
 
     ./web04.bash start
 
 
 
-Voor een overzicht van andere commando's, run:
+For a list of other commands, run:
 
     ./web04.bash
 
 
-Voor meer informatie, kijk op:
+For more information, go to:
 
     https://github.com/pebbe/Gabmap-docker
 
