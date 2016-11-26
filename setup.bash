@@ -237,10 +237,10 @@ export SMTPSERV=~SMTPSERV~
 export SMTPUSER=~SMTPUSER~
 export SMTPPASS=~SMTPPASS~
 
-# Url of contact person, either http:// or mailto:
-export CONTACT=mailto:~MAILFROM~
-
 ### The following variables are optional
+
+# Url of contact person, either http:// or mailto:
+# export CONTACT=http://yourdomain/
 
 # Name of contact person
 # export CONTACTNAME="Your Name"
@@ -278,7 +278,10 @@ case "$1" in
             --name=web04.serve \
             -p $port:9000 \
             -v "$dir":/mod/data \
-            rugcompling/web04:latest serve $uid $gid
+            pebbe/web04:latest serve $uid $gid
+            echo
+            echo web04 is gestart op http://$localhost:$port/
+            echo
         ;;
     stop)
         docker stop web04.serve
@@ -296,19 +299,21 @@ case "$1" in
             --rm \
             -i -t \
             -v "$dir":/mod/data \
-            rugcompling/web04:latest shell
+            pebbe/web04:latest shell
         ;;
     *)
 	echo
-	echo Gebruik: web04.bash CMD [args]
+	echo Gebruik: web04.bash CMD
 	echo
 	echo CMD is een van:
 	echo
 	echo "  start          - start web04"
 	echo "  stop           - stop web04"
 	echo
-	echo "  shell          - open een interactieve shell"
+        echo "  upgrade        - upgrade naar laatste versie van web04"
 	echo
+	echo "  shell          - open een interactieve shell"
+        echo
 	echo Voor meer informatie, kijk op:
 	echo
 	echo "  https://github.com/pebbe/Gabmap-docker"
