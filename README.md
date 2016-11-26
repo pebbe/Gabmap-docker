@@ -30,11 +30,11 @@ It should just work.
 
 ## Windows ##
 
-**Docker for Windows**
+For **Docker for Windows** users:
 
 You need a script `setup.cmd`, but that isn't available yet.
 
-**Docker Toolbox**
+For **Docker Toolbox** users:
 
 Not tested.
 
@@ -70,7 +70,7 @@ http://localhost:9000/
 
 Not tested.
 
-**Docker for Mac**
+For **Docker for Mac** users:
 
 When you run `setup.bash`, the first question you get is what directory
 to use to save your data. I don't know if you can use any directory. You
@@ -81,7 +81,7 @@ shell on Mac. But in *Docker for Windows*, the linking of a directory
 to a container is currently not working. I have no idea what the
 situation is on Mac.
 
-**Docker Toolkit**
+For **Docker Toolkit** users:
 
 When you run `setup.bash`, the first question you get is what directory
 to use to save your data. You need to enter a directory name that starts
