@@ -232,7 +232,7 @@ export APPREL=/
 # The bare e-mail address used as sender in automated e-mail messages
 export MAILFROM=~MAILFROM~
 
-# How to send e-mail
+# How to send e-mail, server including port number
 export SMTPSERV=~SMTPSERV~
 export SMTPUSER=~SMTPUSER~
 export SMTPPASS=~SMTPPASS~

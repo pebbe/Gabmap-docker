@@ -42,10 +42,10 @@ RUN mkdir -p /mod/etc && \
     R CMD INSTALL ../R/iL04*.tar.gz
     
 ADD https://github.com/pebbe/Gabmap/commits/master.atom /master
-RUN cd /mod && git clone https://github.com/pebbe/Gabmap && rm -r Gabmap/.git Gabmap/src && rm /master && \
-    make -C /mod/Gabmap/util && \
-    cd /mod/Gabmap/examples && \
-    rm -f *.u16 HEADER.html .htaccess
+RUN cd /mod && git clone https://github.com/pebbe/Gabmap && rm /master && \
+    cd /mod/Gabmap && \
+    make -C util && \
+    rm -fr .htaccess .git L04.ps examples/*.u16 examples/HEADER.html examples/.htaccess doc/IntroVideo doc/flowcharts src test
 
 ADD INIT.sh /mod/Gabmap/bin/
 ADD profile.sh /mod/etc/
