@@ -22,7 +22,7 @@ Nog steeds problemen? Zorg ervoor dat je de laatste versie van
  2. Run `web04.bash upgrade`
  3. Run `web04.bash start`
 
-Nog steeds problemen? Ga naar https://github.com/rug-compling/paqu-docker/issues
+Nog steeds problemen? Ga naar https://github.com/pebbe/Gabmap-docker/issues
 
 ## Linux ##
 
