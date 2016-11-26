@@ -37,9 +37,10 @@ RUN sed -e 's/^# en_US.UTF-8'/en_US.UTF-8'/' /etc/locale.gen > /etc/locale.gen.t
 RUN mkdir -p /mod/etc && \
     cd /mod && \
     curl -s http://www.let.rug.nl/~kleiweg/L04/L04-src.tar.gz | tar vxzf - && \
-    cd RuG-L04/src && \
-    make && \
-    R CMD INSTALL ../R/iL04*.tar.gz
+    cd RuG-L04 && \
+    make -C src && \
+    R CMD INSTALL R/iL04*.tar.gz && \
+    rm -fr Changes.txt Manuals R README.txt etc pyL04 src
     
 ADD https://github.com/pebbe/Gabmap/commits/master.atom /master
 RUN cd /mod && git clone https://github.com/pebbe/Gabmap && rm /master && \
