@@ -56,6 +56,9 @@ ADD LAMSAS483.kml /mod/Gabmap/examples
 ADD profile.sh /mod/etc/
 ADD httpd.config /mod/etc/
 
+ADD epstopdf /mod/Gabmap/util
+RUN chmod 755 /mod/Gabmap/util/epstopdf
+
 EXPOSE 9000
 
 ADD entrypoint.sh /mod/etc/
