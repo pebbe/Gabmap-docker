@@ -51,6 +51,7 @@ RUN cd /mod && git clone https://github.com/pebbe/Gabmap && rm /master && \
 ADD INIT.sh /mod/Gabmap/bin/
 ADD LAMSAS483-Loman.txt /mod/Gabmap/examples
 ADD LAMSAS483-all.txt /mod/Gabmap/examples
+ADD LAMSAS483-readme.html /mod/Gabmap/examples
 ADD LAMSAS483.kml /mod/Gabmap/examples
 ADD profile.sh /mod/etc/
 ADD httpd.config /mod/etc/
