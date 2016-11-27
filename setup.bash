@@ -134,58 +134,79 @@ then
 fi
 
 echo
-echo What is the address to use as sender of mail by web04?
-echo Example: maintainer@web04.nl
-read -p 'Address: ' MAILFROM
-if [ "$MAILFROM" = "" ]
-then
-    echo Address missing
-    echo Setup aborted
-    exit
-fi
+echo 'Do you want to use web04 in single user mode or multi user mode?'
+echo '  s) single user: no login, all projects visible to everyone'
+echo '  m) multi user: login, each user their own limited number of projects'
+read -p 'User mode (s/m) ' UM
+case $UM in
+    s|S)
+	USERMODE=1
+	;;
+    m|M)
+	USERMODE=2
+	;;
+    *)
+	echo Setup aborted
+	exit
+	;;
+esac
 
-maildomain=`echo $MAILFROM | sed -e 's/.*@//'`
-
-echo
-echo What is the IP address of the smtp server that web04 can use to send mail?
-echo HINT: Look in your mail program in the settings of smtp.
-echo 'Examples, with/without port number (port 25 is the default):'
-echo "  smtp.$maildomain"
-echo "  smtp.$maildomain:25"
-echo "  smtp.$maildomain:465"
-echo "  smtp.$maildomain:587"
-read -p 'SMTP-server: ' SMTPSERV
-if [ "$SMTPSERV" = "" ]
+if [ $USERMODE = 2 ]
 then
-    echo Smtp server missing
-    echo Setup aborted
-    exit
-fi
 
-echo
-echo Do you need to log-in on the smtp server before you can send mail?
-echo If so, provide your username for the smtp server
-read -p 'Username: ' SMTPUSER
-if [ "$SMTPUSER" != "" ]
-then
     echo
-    echo Provide the password for the smtp server
-    read -p 'Password: ' SMTPPASS
-    if [ "$SMTPPASS" = "" ]
+    echo What is the address to use as sender of mail by web04?
+    echo Example: maintainer@web04.nl
+    read -p 'Address: ' MAILFROM
+    if [ "$MAILFROM" = "" ]
     then
-	echo Password missing
+	echo Address missing
 	echo Setup aborted
 	exit
     fi
-fi
 
-export PORT
-export MAILFROM
-export SMTPSERV
-export SMTPUSER
-export SMTPPASS
+    maildomain=`echo $MAILFROM | sed -e 's/.*@//'`
 
-perl -n -e '
+    echo
+    echo What is the IP address of the smtp server that web04 can use to send mail?
+    echo HINT: Look in your mail program in the settings of smtp.
+    echo 'Examples, with/without port number (port 25 is the default):'
+    echo "  smtp.$maildomain"
+    echo "  smtp.$maildomain:25"
+    echo "  smtp.$maildomain:465"
+    echo "  smtp.$maildomain:587"
+    read -p 'SMTP-server: ' SMTPSERV
+    if [ "$SMTPSERV" = "" ]
+    then
+	echo Smtp server missing
+	echo Setup aborted
+	exit
+    fi
+
+    echo
+    echo Do you need to log-in on the smtp server before you can send mail?
+    echo If so, provide your username for the smtp server
+    read -p 'Username: ' SMTPUSER
+    if [ "$SMTPUSER" != "" ]
+    then
+	echo
+	echo Provide the password for the smtp server
+	read -p 'Password: ' SMTPPASS
+	if [ "$SMTPPASS" = "" ]
+	then
+	    echo Password missing
+	    echo Setup aborted
+	    exit
+	fi
+    fi
+
+    export PORT
+    export MAILFROM
+    export SMTPSERV
+    export SMTPUSER
+    export SMTPPASS
+
+    perl -n -e '
 $port     = $ENV{PORT};
 $mailfrom = $ENV{MAILFROM};
 $smtpserv = $ENV{SMTPSERV};
@@ -213,8 +234,12 @@ while (<>) {
     print;
 }
 ' > "$DATA/.etc/INIT-local.sh" << 'EOF'
+
+
+export USERMODE=multi
+
 # Set access mask for new files and directories
-umask 022
+umask 077
 
 # The 'leven' program can use a lot of memory when it has to calculate Cronbach's alpha
 # Limit the amount of memory programs may use, so it won't crash the web server
@@ -247,7 +272,54 @@ export SMTPPASS=~SMTPPASS~
 
 # This overrides CONTACT and CONTACTNAME, and defines a complete footer in HTML
 # export CONTACTLINE="For help, please contact <a href=\"mailto:yourname@yourdomain\">me</a>"
+
 EOF
+
+else
+
+    mkdir -p "$DATA/User"
+    if [ ! -d "$DATA/User" ]
+    then
+	echo Creating directory \'$DATA/User\' failed
+	echo Setup aborted
+	exit
+    fi
+
+    export PORT
+
+    perl -n -e '
+$port     = $ENV{PORT};
+$port     =~ s/\\/\\\\/g;
+$port     =~ s/\"/\\\"/g;
+
+while (<>) {
+    s/~PORT~/"$port"/e;
+    print;
+}
+' > "$DATA/.etc/INIT-local.sh" << 'EOF'
+
+
+export USERMODE=single
+
+# Set access mask for new files and directories
+umask 022
+
+# The 'leven' program can use a lot of memory when it has to calculate Cronbach's alpha
+# Limit the amount of memory programs may use, so it won't crash the web server
+ulimit -v 500000
+
+# The base url to the webapp, including trailing slash
+export APPURL=http://localhost:~PORT~/
+
+# The base url to the webapp using https, including trailing slash
+export APPURLS=http://localhost:~PORT~/
+
+# The base url to the webapp without server, including trailing slash
+export APPREL=/
+
+EOF
+
+fi
 
 echo '#!/bin/bash' > web04.bash
 echo >> web04.bash
