@@ -49,6 +49,9 @@ RUN cd /mod && git clone https://github.com/pebbe/Gabmap && rm /master && \
     rm -fr .htaccess .git L04.ps examples/*.u16 examples/HEADER.html examples/.htaccess doc/IntroVideo doc/flowcharts src test
 
 ADD INIT.sh /mod/Gabmap/bin/
+ADD LAMSAS483-Loman.txt /mod/Gabmap/examples
+ADD LAMSAS483-all.txt /mod/Gabmap/examples
+ADD LAMSAS483.kml /mod/Gabmap/examples
 ADD profile.sh /mod/etc/
 ADD httpd.config /mod/etc/
 
