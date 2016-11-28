@@ -358,6 +358,9 @@ case "$1" in
         docker pull pebbe/web04:latest
         echo web04 needs to be restarted
         ;;
+    logs)
+        docker logs web04.serve
+        ;;
     shell)
         docker run \
             --rm \
@@ -376,6 +379,8 @@ case "$1" in
 	echo
         echo "  upgrade   - upgrade to latest version of web04"
 	echo
+        echo "  logs      - show logs of running web04"
+        echo
 	echo "  shell     - open an interactive shell"
         echo
 	echo For more information, go to:
