@@ -29,7 +29,7 @@
 # This is a script to transform an EPS file to PDF.  Theoretically, any
 # Level 2 PS interpreter should work, although in practice using
 # Ghostscript is near-universal.  Many more details below.
-# 
+#
 # One thing not allowed for: the case of
 # "%%BoundingBox: (atend)" when input is not seekable (e.g., from a pipe),
 #

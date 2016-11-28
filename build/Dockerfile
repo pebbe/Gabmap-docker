@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y \
   R-base-core \
   time \
   vim
-  
+
 RUN sed -e 's/^# en_US.UTF-8'/en_US.UTF-8'/' /etc/locale.gen > /etc/locale.gen.tmp && \
     mv /etc/locale.gen.tmp /etc/locale.gen && \
     locale-gen
@@ -41,7 +41,7 @@ RUN mkdir -p /mod/etc && \
     make -C src && \
     R CMD INSTALL R/iL04*.tar.gz && \
     rm -fr Changes.txt Manuals R README.txt etc pyL04 src
-    
+
 ADD https://github.com/pebbe/Gabmap/commits/master.atom /master
 RUN cd /mod && git clone https://github.com/pebbe/Gabmap && rm /master && \
     cd /mod/Gabmap && \
@@ -49,10 +49,6 @@ RUN cd /mod && git clone https://github.com/pebbe/Gabmap && rm /master && \
     rm -fr .htaccess .git L04.ps examples/*.u16 examples/HEADER.html examples/.htaccess doc/IntroVideo doc/flowcharts src test
 
 ADD INIT.sh /mod/Gabmap/bin/
-ADD LAMSAS483-Loman.txt /mod/Gabmap/examples
-ADD LAMSAS483-all.txt /mod/Gabmap/examples
-ADD LAMSAS483-readme.html /mod/Gabmap/examples
-ADD LAMSAS483.kml /mod/Gabmap/examples
 ADD profile.sh /mod/etc/
 ADD httpd.config /mod/etc/
 

@@ -333,14 +333,6 @@ else
     echo 'localhost=`docker-machine ip $a 2> /dev/null || echo 127.0.0.1`' >> web04.bash
     echo 'unset a' >> web04.bash
 fi
-if [ "$os" = linux ]
-then
-    echo uid=`stat -c %u "$DATA/.etc/INIT-local.sh"` >> web04.bash
-    echo gid=`stat -c %g "$DATA/.etc/INIT-local.sh"` >> web04.bash
-else
-    echo uid=1000 >> web04.bash
-    echo gid=1000 >> web04.bash
-fi
 
 cat >> web04.bash  <<'EOF'
 case "$1" in
@@ -350,7 +342,7 @@ case "$1" in
             --name=web04.serve \
             -p $port:9000 \
             -v "$dir":/mod/data \
-            pebbe/web04:latest serve $uid $gid
+            pebbe/web04:latest serve || exit
             echo
             echo web04 has started on http://$localhost:$port/
             echo

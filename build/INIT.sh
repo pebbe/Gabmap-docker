@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 
 # NOTE: for non-ascii characters, this file should be encoded in utf-8
 
@@ -20,7 +20,7 @@ export PYTHONPATH=$PYTHON3PATH
 
 # Make sure sys.stdout is set to UTF-8
 export PYTHONIOENCODING=utf-8
-export LANG=en_US.UTF-8  
+export LANG=en_US.UTF-8
 export LC_COLLATE=C
 
 # Where libraries for R are stored
