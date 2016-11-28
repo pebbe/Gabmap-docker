@@ -358,7 +358,9 @@ case "$1" in
         docker pull pebbe/web04:latest
         echo web04 needs to be restarted
         ;;
-    logs)
+    info)
+        docker inspect web04.serve
+        echo
         docker logs web04.serve
         ;;
     shell)
@@ -379,7 +381,7 @@ case "$1" in
 	echo
         echo "  upgrade   - upgrade to latest version of web04"
 	echo
-        echo "  logs      - show logs of running web04"
+        echo "  info      - show debug info for running web04"
         echo
 	echo "  shell     - open an interactive shell"
         echo
