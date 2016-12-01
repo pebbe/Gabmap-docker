@@ -206,7 +206,7 @@ then
     export SMTPUSER
     export SMTPPASS
 
-    perl -n -e '
+    perl -e '
 $port     = $ENV{PORT};
 $mailfrom = $ENV{MAILFROM};
 $smtpserv = $ENV{SMTPSERV};
@@ -234,7 +234,6 @@ while (<>) {
     print;
 }
 ' > "$DATA/.etc/INIT-local.sh" << 'EOF'
-
 
 export USERMODE=multi
 
@@ -287,7 +286,7 @@ else
 
     export PORT
 
-    perl -n -e '
+    perl -e '
 $port     = $ENV{PORT};
 $port     =~ s/\\/\\\\/g;
 $port     =~ s/\"/\\\"/g;
@@ -297,7 +296,6 @@ while (<>) {
     print;
 }
 ' > "$DATA/.etc/INIT-local.sh" << 'EOF'
-
 
 export USERMODE=single
 
