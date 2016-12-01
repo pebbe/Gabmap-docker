@@ -32,7 +32,18 @@ It should just work.
 
 For **Docker for Windows** users:
 
-You need a script `setup.cmd`, but that isn't available yet.
+Not tested.
+
+When last testing another application in Docker for Windows (July 22,
+2016) there were problems linking a directory to a container. Until that
+is solved, this won't work.
+
+Run `setup.cmd` instead of `setup.bash`. This creates the batch file
+script `web04.cmd`.
+
+When you run `setup.cmd`, the first question you get is what directory
+to use to save your data. You may need to enter a directory name that
+starts with: `/c/Users`
 
 For **Docker Toolbox** users:
 
