@@ -109,7 +109,7 @@ CALL :Trim maildomain %maildomain%
 IF NOT DEFINED maildomain SET maildomain=web04.nl
 
 ECHO.
-ECHO What is the IP address of the smtp server that web04 can use to send mail?
+ECHO What is the address of the smtp server that web04 can use to send mail?
 ECHO HINT: Look in your mail program in the settings of smtp.
 ECHO Examples, with/without port number (port 25 is the default):
 ECHO   smtp.%maildomain%

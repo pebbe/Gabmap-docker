@@ -168,7 +168,7 @@ then
     maildomain=`echo $MAILFROM | sed -e 's/.*@//'`
 
     echo
-    echo What is the IP address of the smtp server that web04 can use to send mail?
+    echo What is the address of the smtp server that web04 can use to send mail?
     echo HINT: Look in your mail program in the settings of smtp.
     echo 'Examples, with/without port number (port 25 is the default):'
     echo "  smtp.$maildomain"
