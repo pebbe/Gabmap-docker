@@ -45,8 +45,13 @@ RUN mkdir -p /mod/etc && \
 ADD https://github.com/pebbe/Gabmap/commits/master.atom /master
 RUN cd /mod && git clone https://github.com/pebbe/Gabmap && rm /master && \
     cd /mod/Gabmap && \
+    mv site/* site/.htaccess . && \
+    rmdir site && \
     make -C util && \
     rm -fr .htaccess .git L04.ps examples/*.u16 examples/HEADER.html examples/.htaccess doc/IntroVideo doc/flowcharts src test
+
+RUN perl -p -e 's!\{0\[binurls\]\}!/bin/!' /mod/Gabmap/tools/ll2kml.html.IN > /mod/Gabmap/tools/ll2kml.html && \
+    perl -p -e 's!\{0\[binurls\]\}!/bin/!' /mod/Gabmap/tools/xs2utf.html.IN > /mod/Gabmap/tools/xs2utf.html
 
 ADD INIT.sh /mod/Gabmap/bin/
 ADD profile.sh /mod/etc/

@@ -38,6 +38,8 @@ export DATADIR=/mod/data/
 # Location of the webapp, including trailing slash
 export APPDIR=/mod/Gabmap/
 
+export BINDIR=/mod/Gabmap/bin/
+
 # PATH should include the Python binary, and the RuG/L04 binaries
 export PATH=${APPDIR}util:/mod/RuG-L04/bin:$PATH
 
@@ -46,3 +48,7 @@ export PATH=${APPDIR}util:/mod/RuG-L04/bin:$PATH
 
 # Site specific config
 . /mod/data/.etc/INIT-local.sh
+
+export BINURL=${APPURL}bin/
+export BINURLS=${APPURLS}bin/
+export BINREL=${APPREL}bin/
