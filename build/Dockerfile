@@ -1,10 +1,10 @@
 #
 # PaQu in Docker
 #
-# To build and push to docker hub:
+# To build and push to registry:
 #
-#     docker build -t pebbe/web04:latest .
-#     docker push pebbe/web04:latest
+#     docker build -t registry.webhosting.rug.nl/compling/web04:latest .
+#     docker push registry.webhosting.rug.nl/compling/web04:latest
 #
 
 FROM debian:8
