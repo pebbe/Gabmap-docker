@@ -238,7 +238,7 @@ ECHO. >> web04.cmd
 ECHO SET CMD=%%1>> web04.cmd
 ECHO. >> web04.cmd
 ECHO IF NOT "%%CMD%%"=="start" GOTO EndStart>> web04.cmd
-ECHO docker run -d --name=web04.serve -p %%port%%:9000 -v "%%udir%%:/mod/data" pebbe/web04:latest serve>> web04.cmd
+ECHO docker run -d --name=web04.serve -p %%port%%:9000 -v "%%udir%%:/mod/data" registry.webhosting.rug.nl/compling/web04:latest serve>> web04.cmd
 ECHO IF NOT "%%ERRORLEVEL%%"=="0" GOTO:EOF>> web04.cmd
 ECHO ECHO web04 has started on http://%%localhost%%:%%port%%/>> web04.cmd
 ECHO GOTO:EOF>> web04.cmd
@@ -254,7 +254,7 @@ ECHO IF NOT "%%CMD%%"=="upgrade" GOTO EndUpgrade>> web04.cmd
 ECHO ECHO stopping web04>> web04.cmd
 ECHO docker stop web04.serve>> web04.cmd
 ECHO docker rm web04.serve>> web04.cmd
-ECHO docker pull pebbe/web04:latest>> web04.cmd
+ECHO docker pull registry.webhosting.rug.nl/compling/web04:latest>> web04.cmd
 ECHO ECHO web04 needs to be restarted>> web04.cmd
 ECHO GOTO:EOF>> web04.cmd
 ECHO :EndUpgrade>> web04.cmd
@@ -267,7 +267,7 @@ ECHO GOTO:EOF>> web04.cmd
 ECHO :EndInfo>> web04.cmd
 ECHO.>> web04.cmd
 ECHO IF NOT "%%CMD%%"=="shell" GOTO EndShell>> web04.cmd
-ECHO docker run --rm -i -t -v "%%udir%%:/mod/data" pebbe/web04:latest shell>> web04.cmd
+ECHO docker run --rm -i -t -v "%%udir%%:/mod/data" registry.webhosting.rug.nl/compling/web04:latest shell>> web04.cmd
 ECHO GOTO:EOF>> web04.cmd
 ECHO :EndShell>> web04.cmd
 ECHO.>> web04.cmd

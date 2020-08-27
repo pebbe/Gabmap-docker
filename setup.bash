@@ -340,7 +340,7 @@ case "$1" in
             --name=web04.serve \
             -p $port:9000 \
             -v "$dir":/mod/data \
-            pebbe/web04:latest serve || exit
+            registry.webhosting.rug.nl/compling/web04:latest serve || exit
             echo
             echo web04 has started on http://$localhost:$port/
             echo
@@ -353,7 +353,7 @@ case "$1" in
         echo stopping web04
         docker stop web04.serve
         docker rm web04.serve
-        docker pull pebbe/web04:latest
+        docker pull registry.webhosting.rug.nl/compling/web04:latest
         echo web04 needs to be restarted
         ;;
     info)
@@ -366,7 +366,7 @@ case "$1" in
             --rm \
             -i -t \
             -v "$dir":/mod/data \
-            pebbe/web04:latest shell
+            registry.webhosting.rug.nl/compling/web04:latest shell
         ;;
     *)
 	echo

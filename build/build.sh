@@ -1,3 +1,3 @@
 #!/bin/sh
 set -x
-docker build -t pebbe/web04:latest .
+docker build -t registry.webhosting.rug.nl/compling/web04:latest .
