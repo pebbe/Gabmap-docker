@@ -36,7 +36,7 @@ RUN sed -e 's/^# en_US.UTF-8'/en_US.UTF-8'/' /etc/locale.gen > /etc/locale.gen.t
 
 RUN mkdir -p /mod/etc && \
     cd /mod && \
-    curl -s http://www.let.rug.nl/~kleiweg/L04/L04-src.tar.gz | tar vxzf - && \
+    curl -s http://www.let.rug.nl/~kleiweg/L04/L04-src.tar.gz | tar --no-same-owner -vxzf - && \
     cd RuG-L04 && \
     make -C src && \
     R CMD INSTALL R/iL04*.tar.gz && \
