@@ -11,6 +11,7 @@ This creates a script `web04.bash` which you can use to start Gabmap.
 More on Gabmap:
 https://github.com/pebbe/Gabmap
 
+
 ## Problems? ##
 
 First read the instruction below for your platform.
@@ -24,9 +25,11 @@ Still problems? Make sure you have the latest version of
 
 Still problems? Go to https://github.com/pebbe/Gabmap-docker/issues
 
+
 ## Linux ##
 
 It should just work.
+
 
 ## Windows ##
 
@@ -101,3 +104,4 @@ with: `/Users`
 Does Mac have the same problem as Windows, that the URL where Gabmap is
 running is not available from outside of the Docker shell? And if yes,
 how do you solve this?
+
