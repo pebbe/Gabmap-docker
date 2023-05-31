@@ -7,7 +7,7 @@
 #     docker push registry.webhosting.rug.nl/compling/web04:latest
 #
 
-FROM debian:8
+FROM debian:10
 
 MAINTAINER Peter Kleiweg <p.c.j.kleiweg@rug.nl>
 
@@ -22,11 +22,10 @@ RUN apt-get update && apt-get install -y \
   make \
   nano \
   netpbm \
-  python-numpy \
-  python-pyproj \
+  procps \
   python3-numpy \
   python3-pyproj \
-  R-base-core \
+  r-base-core \
   time \
   vim
 
