@@ -9,7 +9,7 @@
 
 FROM debian:10
 
-MAINTAINER Peter Kleiweg <p.c.j.kleiweg@rug.nl>
+LABEL org.opencontainers.image.authors="Peter Kleiweg <p.c.j.kleiweg@rug.nl>"
 
 RUN apt-get update && apt-get install -y \
   ca-certificates \
@@ -35,7 +35,7 @@ RUN sed -e 's/^# en_US.UTF-8'/en_US.UTF-8'/' /etc/locale.gen > /etc/locale.gen.t
 
 RUN mkdir -p /mod/etc && \
     cd /mod && \
-    curl -s http://www.let.rug.nl/~kleiweg/L04/L04-src.tar.gz | tar --no-same-owner -vxzf - && \
+    curl -s https://www.let.rug.nl/~kleiweg/L04/L04-src.tar.gz | tar --no-same-owner -vxzf - && \
     cd RuG-L04 && \
     make -C src && \
     R CMD INSTALL R/iL04*.tar.gz && \
