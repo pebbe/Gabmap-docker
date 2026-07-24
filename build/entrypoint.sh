@@ -29,8 +29,8 @@ case "$1" in
                 fi
             done
         else
-            groupadd --gid $gid web || true
-            useradd --no-create-home --uid $uid --gid $gid web || true
+            groupadd --gid $gid -o web
+            useradd --no-create-home --uid $uid -o --gid $gid web
         fi
         trap cleanexit 1 2 3 9 15
         lighttpd -D -f /mod/etc/httpd.config &
@@ -43,8 +43,8 @@ case "$1" in
             groupadd --system --gid 999 web
             useradd --system --uid 999 --gid 999 --no-create-home web
         else
-            groupadd --gid $gid web || true
-            useradd --no-create-home --uid $uid --gid $gid web || true
+            groupadd --gid $gid -o web
+            useradd --no-create-home --uid $uid -o --gid $gid web
         fi
         echo
         echo Available editors: nano, vim
