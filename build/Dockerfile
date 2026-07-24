@@ -7,7 +7,7 @@
 #     docker push registry.webhosting.rug.nl/compling/web04:latest
 #
 
-FROM debian:10
+FROM debian:12
 
 LABEL org.opencontainers.image.authors="Peter Kleiweg <p.c.j.kleiweg@rug.nl>"
 
@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
   lighttpd \
   locales \
   make \
+  mc \
   nano \
   netpbm \
   procps \
